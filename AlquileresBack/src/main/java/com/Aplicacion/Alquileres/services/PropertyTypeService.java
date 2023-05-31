@@ -1,7 +1,5 @@
 package com.Aplicacion.Alquileres.services;
 
-import com.Aplicacion.Alquileres.models.Company;
-import com.Aplicacion.Alquileres.models.PaymentMethod;
 import com.Aplicacion.Alquileres.models.PropertyType;
 import com.Aplicacion.Alquileres.repositories.PropertyTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

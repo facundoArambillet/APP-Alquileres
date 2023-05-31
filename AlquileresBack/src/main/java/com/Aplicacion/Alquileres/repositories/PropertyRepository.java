@@ -1,6 +1,5 @@
 package com.Aplicacion.Alquileres.repositories;
 
-import com.Aplicacion.Alquileres.models.Expense;
 import com.Aplicacion.Alquileres.models.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

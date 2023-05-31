@@ -1,9 +1,7 @@
 package com.Aplicacion.Alquileres.controllers;
 
 import com.Aplicacion.Alquileres.models.Expense;
-import com.Aplicacion.Alquileres.models.PropertyType;
 import com.Aplicacion.Alquileres.services.ExpenseService;
-import com.Aplicacion.Alquileres.services.PropertyTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
