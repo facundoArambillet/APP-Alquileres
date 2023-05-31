@@ -1,0 +1,23 @@
+footer {
+    padding: 50px 0;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20%;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+footer a:hover {
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+footer .list-inline .list-inline-item {
+    padding: 10px 15px;
+}
+
+.fondo_dark {
+    background-color: #000000;
+}

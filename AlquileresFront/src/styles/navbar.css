@@ -1,0 +1,89 @@
+.div-nav nav {
+  background-color: black;
+}
+
+.div-nav .navbar-toggler {
+  background-color: white;
+}
+
+.div-nav .navbar-brand {
+  letter-spacing: 3px;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.div-nav .navbar-scroll  .navbar-brand,
+.div-nav .navbar-scroll .nav-link,
+.div-nav .navbar-scroll .fa-bars {
+  color: #fff;
+}
+
+.div-nav .navbar-scroll {
+  box-shadow: none;
+}
+
+.div-nav .navbar-scrolled {
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.div-nav .navbar-scrolled .div-nav .navbar-brand,
+.div-nav .navbar-scrolled .nav-link,
+.div-nav .navbar-scrolled .fa-bars {
+  color: #4f4f4f;
+}
+
+.div-nav .navbar-scrolled {
+  background-color: #fff;
+}
+
+.div-nav.display-1 {
+  font-weight: 500 !important;
+  letter-spacing: 40px;
+}
+
+.div-nav .dropdown > a {
+  background-color: transparent;
+  border: 0px;
+  color: white;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgb(216, 208, 208);
+}
+
+
+@media (max-width: 991px) {
+  .div-nav .navbar-scroll {
+    background-color: black;
+  }
+
+  .div-nav .navbar-scroll .navbar-brand,
+  .div-nav .navbar-scroll .nav-link,
+  .div-nav .navbar-scroll .fa-bars {
+    color: white !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .div-nav #intro {
+    height: 950px !important;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 750px) {
+  .div-nav #intro {
+    height: 1100px !important;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 990px) {
+  .div-nav #intro {
+    height: 600px !important;
+  }
+}
+
+
+@media (min-width: 1600px) {
+  .div-nav.display-1 {
+    font-size: 10rem;
+  }
+}

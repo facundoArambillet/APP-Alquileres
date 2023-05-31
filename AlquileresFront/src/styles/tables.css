@@ -1,0 +1,54 @@
+:root {
+  --bs-table-bg: #212529;
+}
+.MuiTablePagination-actions {
+  margin-bottom: 1%;
+}
+.MuiInputBase-root {
+  margin-bottom: 1%;
+}
+.div-tables .intro {
+  height: 100%;
+  margin-top: 10%;
+}
+.btn-actions {
+  color: white !important;
+  background: transparent;
+  border: 0px;
+}
+
+.div-tables table td,
+.div-tables table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.div-tables thead th,
+.div-tables tbody th {
+  color: #fff;
+}
+
+.div-tables tbody th input,
+.div-tables tbody td input,
+.div-tables tbody td select {
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.div-tables tbody td select option {
+  color: black;
+}
+
+.div-tables tbody td {
+  font-weight: 500;
+  color: rgba(255, 255, 255, .65);
+}
+/* Cambio el color del icono de calendario de los inputs que sean de tipo date y tengan la clase text-white  */
+input.text-white[type="date"]::-webkit-calendar-picker-indicator {
+  /* Cambiamos el color del icono */
+  filter: invert(1);
+}
+
+
