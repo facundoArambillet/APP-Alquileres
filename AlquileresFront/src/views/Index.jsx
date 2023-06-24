@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/index.css"
+//Librerias para autenticarme con google
+import GoogleLogin from "react-google-login";
+import { gapi } from "gapi-script"
+
 
 export default function Index() {
     const LOGIN = window.sessionStorage.getItem("loginOk");
+    const CLIENTID = "22998525093-7gnps3qj3ahlg055v3ssvefehh119pij.apps.googleusercontent.com";
     const [email, setEmail] = useState(""); // Estado para el valor del input de email
     const [password, setPassword] = useState("");
 
@@ -56,6 +61,13 @@ export default function Index() {
             }
         }
         else {
+            Swal.fire(
+                {
+                    icon: 'error',
+                    title: "Email o password incorrectos",
+                    text: "Porfavor vuelva a intentarlo",
+                }
+            )
             console.log("Email no encontrado");
         }
 
@@ -69,6 +81,24 @@ export default function Index() {
         // Actualizar el estado del valor del input de password cuando cambie
         setPassword(event.target.value);
     };
+
+    const onSuccess = (response) => {
+        console.log(response.profileObj)
+    }
+    const onFailure = (response) => {
+        console.log(response)
+    }
+
+    useEffect(() => {
+        const start = () => {
+            gapi.auth2.init({
+                clientId: CLIENTID
+            })
+        }
+        gapi.load("client:auth2", start)
+    }, []);
+
+
 
     return (
         <> {LOGIN ? (
@@ -119,15 +149,26 @@ export default function Index() {
                             </div>
                             <div className="mx-3 my-2 py-2 bordert">
                                 <div className="text-center py-3">
-                                    <a href="https://wwww.facebook.com" target="_blank" className="px-2">
+                                    <a href="https://wwww.facebook.com" className="px-2">
                                         <img src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt="" />
                                     </a>
-                                    <a href="https://www.google.com" target="_blank" className="px-2">
-                                        <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
-                                            alt="" />
+                                    <a href="#" className="px-2 network">
+                                        <GoogleLogin 
+                                            icon={false}
+                                            clientId={CLIENTID}
+                                            cookiePolicy={"single_host_policy"}
+                                            onSuccess={onSuccess}
+                                            onFailure={onFailure}
+                                        >
+                                            <img
+                                                src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+                                                alt="Google Icon"
+                                            />
+                                        </GoogleLogin>
+
                                     </a>
 
-                                    <a href="https://www.github.com" target="_blank" className="px-2">
+                                    <a href="https://www.github.com" className="px-2">
                                         <img src="https://www.freepnglogos.com/uploads/512x512-logo-png/512x512-logo-github-icon-35.png"
                                             alt="" />
                                     </a>

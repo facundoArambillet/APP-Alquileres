@@ -1,6 +1,8 @@
 package com.Aplicacion.Alquileres.services;
 
 import com.Aplicacion.Alquileres.models.Invoice;
+import com.Aplicacion.Alquileres.models.Utility;
+import com.Aplicacion.Alquileres.models.UtilityType;
 import com.Aplicacion.Alquileres.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,8 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    // @Autowired
-    // private UtilityService utilityService;
+    @Autowired
+    private UtilityService utilityService;
 
     public List<Invoice> getAll() {
         try {

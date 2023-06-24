@@ -4,6 +4,7 @@ import com.Aplicacion.Alquileres.models.Company;
 import com.Aplicacion.Alquileres.repositories.CompanyRepository;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

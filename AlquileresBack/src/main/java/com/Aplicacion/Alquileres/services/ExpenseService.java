@@ -1,6 +1,8 @@
 package com.Aplicacion.Alquileres.services;
 
+import com.Aplicacion.Alquileres.models.Employee;
 import com.Aplicacion.Alquileres.models.Expense;
+import com.Aplicacion.Alquileres.repositories.EmployeeRepository;
 import com.Aplicacion.Alquileres.repositories.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

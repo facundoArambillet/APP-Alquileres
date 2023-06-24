@@ -30,6 +30,7 @@ function App() {
         <Route path="/invoices" element={<Invoices />} />
         <Route path="/utilities" element={<Utilities />} />
         <Route path="/UtilityTypes" element={<UtilityTypes />} />
+        
       </Routes>
       {location.pathname !== "/" && <Footer />}
 

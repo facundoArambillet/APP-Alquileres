@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DetailInvoiceDownload from './DetailInvoiceDownload';
 
-//Libreria para podr generar una paginacion
+//Libreria para poder generar una paginacion
 import TablePagination from '@mui/material/TablePagination';
 //Libreria para generar pdf desde html y javaScript
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -245,6 +245,7 @@ export default function DetailInvoices(invoices) {
             setTenants(json);
             setInputsValues(prevState => ({
                 ...prevState,
+                idTenant: json[0].idTenant,
                 tenant: json[0],
             }));
             setPropertyTenant({

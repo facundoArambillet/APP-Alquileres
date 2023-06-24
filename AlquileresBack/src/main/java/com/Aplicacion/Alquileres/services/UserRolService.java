@@ -1,5 +1,6 @@
 package com.Aplicacion.Alquileres.services;
 
+import com.Aplicacion.Alquileres.models.Tenant;
 import com.Aplicacion.Alquileres.models.UserRol;
 import com.Aplicacion.Alquileres.repositories.UserRolRepository;
 import org.springframework.beans.factory.annotation.Autowired;

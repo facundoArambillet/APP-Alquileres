@@ -1,5 +1,6 @@
 package com.Aplicacion.Alquileres.services;
 
+import com.Aplicacion.Alquileres.models.Company;
 import com.Aplicacion.Alquileres.models.Employee;
 import com.Aplicacion.Alquileres.repositories.EmployeeRepository;
 import jakarta.persistence.EntityExistsException;

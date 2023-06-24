@@ -62,6 +62,10 @@ button:focus-visible {
   min-width: 320px;
   min-height: 100vh;
 }
+/* Clase para sacarle el shadow a los iconos de google , facebook, etc */
+.network button { 
+  box-shadow: none !important;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
