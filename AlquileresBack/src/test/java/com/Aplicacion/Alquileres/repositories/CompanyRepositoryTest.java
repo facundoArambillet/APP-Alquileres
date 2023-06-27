@@ -65,8 +65,6 @@ import java.util.Optional;
         Assertions.assertThat(companySaved.getIdCompany()).isGreaterThan(0);
     }
 
-
-
     @DisplayName("Test for update a company")
     @Test
     public void updateCompany() {

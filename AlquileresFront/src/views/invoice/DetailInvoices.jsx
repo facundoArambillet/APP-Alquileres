@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DetailInvoiceDownload from './DetailInvoiceDownload';
 
-//Libreria para poder generar una paginacion
+//Libreria para podr generar una paginacion
 import TablePagination from '@mui/material/TablePagination';
 //Libreria para generar pdf desde html y javaScript
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -45,7 +45,6 @@ export default function DetailInvoices(invoices) {
     };
 
     const handleChangeRowsPerPage = (event) => {
-
         setRowsPerPage(parseInt(event.target.value, 10));
         paginateInvoices(parseInt(event.target.value));
         setPage(0);
@@ -197,29 +196,29 @@ export default function DetailInvoices(invoices) {
 
     };
 
-    const handleSelectExcel = () => {
-        //Agarro los 2 selects que tienen cada factura
-        let invoiceOne = document.querySelector(".invoiceExcelOne");
-        let invoiceTwo = document.querySelector(".invoiceExcelTwo");
-        arrayInvoices.forEach(invoice => {
-            //Pregunto si el id de la factura es igual al id del option que esta seleccionado
-            if (invoice.idInvoice == invoiceOne.options[invoiceOne.options.selectedIndex].id) {
-                setInvoicesSelected(prevState => ({
-                    ...prevState,
-                    invoiceOne: invoice
-                }));
-            }
-            else if (invoice.idInvoice == invoiceTwo.options[invoiceTwo.options.selectedIndex].id) {
-                setInvoicesSelected(prevState => ({
-                    ...prevState,
-                    invoiceTwo: invoice
-                }));
-            }
+    // const handleSelectExcel = () => {
+    //     //Agarro los 2 selects que tienen cada factura
+    //     let invoiceOne = document.querySelector(".invoiceExcelOne");
+    //     let invoiceTwo = document.querySelector(".invoiceExcelTwo");
+    //     arrayInvoices.forEach(invoice => {
+    //         //Pregunto si el id de la factura es igual al id del option que esta seleccionado
+    //         if (invoice.idInvoice == invoiceOne.options[invoiceOne.options.selectedIndex].id) {
+    //             setInvoicesSelected(prevState => ({
+    //                 ...prevState,
+    //                 invoiceOne: invoice
+    //             }));
+    //         }
+    //         else if (invoice.idInvoice == invoiceTwo.options[invoiceTwo.options.selectedIndex].id) {
+    //             setInvoicesSelected(prevState => ({
+    //                 ...prevState,
+    //                 invoiceTwo: invoice
+    //             }));
+    //         }
 
-        });
+    //     });
 
-        console.log(invoicesSelected);
-    };
+    //     console.log(invoicesSelected);
+    // };
 
 
     const handleInputChange = (key, value) => {
@@ -245,7 +244,6 @@ export default function DetailInvoices(invoices) {
             setTenants(json);
             setInputsValues(prevState => ({
                 ...prevState,
-                idTenant: json[0].idTenant,
                 tenant: json[0],
             }));
             setPropertyTenant({
@@ -481,7 +479,7 @@ export default function DetailInvoices(invoices) {
 
                                                                 <td scope="col" >
                                                                     <div className='row'>
-                                                                        <div className="col-3">
+                                                                        <div className="col-4">
                                                                             <button type="button" className="btn btn-primary btn-actions" data-bs-toggle="modal" data-bs-target="#modalCreate" >
                                                                                 <i className="bi bi-plus-lg"></i>
                                                                             </button>
@@ -580,12 +578,12 @@ export default function DetailInvoices(invoices) {
                                                                             </div>
                                                                         </div>
 
-                                                                        <div className="col-3">
+                                                                        <div className="col-4">
                                                                             <button type="button" className="btn btn-primary btn-actions" onClick={() => handleDelete(invoice.idInvoice)}>
                                                                                 <i className="bi bi-trash3-fill"></i>
                                                                             </button>
                                                                         </div>
-                                                                        <div className="col-3">
+                                                                        <div className="col-4">
                                                                             <PDFDownloadLink
                                                                                 document={<DetailInvoiceDownload invoice={invoice}></DetailInvoiceDownload>}
                                                                                 fileName='factura.pdf'>
@@ -595,7 +593,7 @@ export default function DetailInvoices(invoices) {
                                                                             </PDFDownloadLink>
                                                                         </div>
 
-                                                                        <div className="col-3">
+                                                                        {/* <div className="col-3">
                                                                             <button type="button" className="btn btn-primary btn-actions" data-bs-toggle="modal" data-bs-target="#modalExcel">
                                                                                 <i className="bi bi-file-earmark-spreadsheet"></i>
                                                                             </button>
@@ -640,7 +638,7 @@ export default function DetailInvoices(invoices) {
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> */}
                                                                     </div>
                                                                 </td>
                                                             </tr>

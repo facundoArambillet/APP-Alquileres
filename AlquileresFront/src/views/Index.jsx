@@ -19,45 +19,15 @@ export default function Index() {
 
     const handleLoginClick = async () => {
         // Lógica que se ejecutará cuando se haga clic en el botón de login
-        console.log("Email:", email);
-        console.log("Password:", password);
-        let response = await fetch(`http://localhost:8100/app/users/email/${email}`, {
-            "method": 'GET',
-            "headers": {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-                "Origin": 'http://localhost:3000'
-            }
-        })
-        if (response.ok) {
-            let userSearch = await response.json();
-            let user = {
-                "email": email,
-                "password": password
-            }
-            console.log(user);
-            response = await fetch(`http://localhost:8100/app/login`, {
-                "method": 'POST',
-                "headers": {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json',
-                    "Origin": 'http://localhost:3000'
-                },
-                body: JSON.stringify(user)
-            })
-            if (response.ok) {
-                let token = await response.text();
-                console.log(token)
-                window.sessionStorage.setItem("loginOk", true);
-                window.sessionStorage.setItem("idUser", userSearch.idUser);
-                window.sessionStorage.setItem("email", userSearch.email);
-                window.sessionStorage.setItem("idRol", userSearch.idRol);
-                window.sessionStorage.setItem("token", token);
-                window.location.href = "/";
-                console.log("Sesion iniciada");
-            }
-            else {
-                console.log("Email o contrasenia invalido");
+        // console.log("Email:", email);
+        // console.log("Password:", password);
+        let responseEmail = await searchEmail(email);
+        if (responseEmail.ok) {
+            let userSearch = await responseEmail.json();
+            let responseLogin = await verificationUser(email, password);
+            if (responseLogin.ok) {
+                let token = await responseLogin.text();
+                loginUser(userSearch, token);
             }
         }
         else {
@@ -69,7 +39,9 @@ export default function Index() {
                 }
             )
             console.log("Email no encontrado");
+
         }
+
 
     };
     const handleEmailChange = (event) => {
@@ -82,12 +54,89 @@ export default function Index() {
         setPassword(event.target.value);
     };
 
-    const onSuccess = (response) => {
-        console.log(response.profileObj)
+    const onSuccess = async (response) => {
+        //console.log(response.profileObj);
+
+        let emailGoogle = response.profileObj.email;
+        // Creo una contraseña generica para poder insertar el usuario en mi base de datos para poder loguearlo y que me devuelva el JWT
+        let googlePassword = "googleAccount";
+        let responseEmail = await searchEmail(emailGoogle);
+
+        if (responseEmail.ok) {
+            let userSearch = await responseEmail.json();
+            let responseLogin = await verificationUser(emailGoogle, googlePassword);
+            if (responseLogin.ok) {
+                let token = await responseLogin.text();
+                loginUser(userSearch, token);
+            }
+        }
+        else {
+            let userGoogle = {
+                "email": response.profileObj.email,
+                "password": googlePassword,
+                "idRol": 1
+            }
+
+            let responseCreate = await fetch(`http://localhost:8100/app/users`, {
+                "method": 'POST',
+                "headers": {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json',
+                    "Origin": 'http://localhost:3000'
+                },
+                body: JSON.stringify(userGoogle)
+            })
+            if (responseCreate.ok) {
+                let responseLogin = await verificationUser(emailGoogle, googlePassword);
+                if (responseLogin.ok) {
+                    let token = await responseLogin.text();
+                    loginUser(userGoogle, token);
+                }
+            }
+        }
     }
-    const onFailure = (response) => {
-        console.log(response)
+
+    // const onFailure = (response) => {
+    //     console.log(response);
+    // }
+    const searchEmail = async (email) => {
+        let response = await fetch(`http://localhost:8100/app/users/email/${email}`, {
+            "method": 'GET',
+            "headers": {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+                "Origin": 'http://localhost:3000'
+            }
+        })
+        return response;
     }
+    const verificationUser = async (email, password) => {
+        let user = {
+            "email": email,
+            "password": password
+        }
+        console.log(user);
+        let response = await fetch(`http://localhost:8100/app/login`, {
+            "method": 'POST',
+            "headers": {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+                "Origin": 'http://localhost:3000'
+            },
+            body: JSON.stringify(user)
+        })
+        return response;
+    }
+    const loginUser = async (user, token) => {
+        window.sessionStorage.setItem("loginOk", true);
+        window.sessionStorage.setItem("idUser", user.idUser);
+        window.sessionStorage.setItem("email", user.email);
+        window.sessionStorage.setItem("idRol", user.idRol);
+        window.sessionStorage.setItem("token", token);
+        window.location.href = "/";
+        console.log("Sesion iniciada");
+    }
+
 
     useEffect(() => {
         const start = () => {
@@ -153,12 +202,12 @@ export default function Index() {
                                         <img src="https://www.dpreview.com/files/p/articles/4698742202/facebook.jpeg" alt="" />
                                     </a>
                                     <a href="#" className="px-2 network">
-                                        <GoogleLogin 
+                                        <GoogleLogin
                                             icon={false}
                                             clientId={CLIENTID}
                                             cookiePolicy={"single_host_policy"}
                                             onSuccess={onSuccess}
-                                            onFailure={onFailure}
+                                        //onFailure={onFailure}
                                         >
                                             <img
                                                 src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"

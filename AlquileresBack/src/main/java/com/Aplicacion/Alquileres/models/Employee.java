@@ -62,4 +62,5 @@ public class Employee {
         this.startDate = startDate;
         this.idCompany = idCompany;
     }
+
 }

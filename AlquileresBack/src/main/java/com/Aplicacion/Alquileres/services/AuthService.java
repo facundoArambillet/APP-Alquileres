@@ -1,6 +1,6 @@
 package com.Aplicacion.Alquileres.services;
 
-import com.Aplicacion.Alquileres.repositories.UsuarioRepository;
+import com.Aplicacion.Alquileres.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements UserDetailsService {
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override

@@ -1,6 +1,6 @@
 package com.Aplicacion.Alquileres.security;
 
-import com.Aplicacion.Alquileres.repositories.UsuarioRepository;
+import com.Aplicacion.Alquileres.repositories.UserRepository;
 import com.Aplicacion.Alquileres.services.AuthService;
 import com.Aplicacion.Alquileres.services.TokenService;
 import jakarta.servlet.FilterChain;
@@ -21,7 +21,7 @@ public class FilterToken extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private UsuarioRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private AuthService authService;

@@ -3,7 +3,7 @@ package com.Aplicacion.Alquileres.services;
 import com.Aplicacion.Alquileres.models.User;
 import com.Aplicacion.Alquileres.models.UserRol;
 import com.Aplicacion.Alquileres.repositories.UserRolRepository;
-import com.Aplicacion.Alquileres.repositories.UsuarioRepository;
+import com.Aplicacion.Alquileres.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,14 +19,14 @@ import java.util.regex.Pattern;
 @Slf4j
 public class UserService {
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private UserRolRepository userRolRepository;
 
     public List<User> getAll() {
         try {
-            return usuarioRepository.findAll();
+            return userRepository.findAll();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -35,7 +35,7 @@ public class UserService {
     }
     public List<User> getAllDesc() {
         try {
-            return usuarioRepository.getAllDesc();
+            return userRepository.getAllDesc();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -44,7 +44,7 @@ public class UserService {
     }
     public User getById(int id) {
         try {
-            return usuarioRepository.findById(id).orElseThrow();
+            return userRepository.findById(id).orElseThrow();
         }
         catch (NoSuchElementException e) {
             System.out.println(e);
@@ -54,7 +54,7 @@ public class UserService {
 
     public User getByEmail(String email) {
         try {
-            return usuarioRepository.findByEmail(email);
+            return userRepository.findByEmail(email);
         }
         catch (NoSuchElementException e) {
             System.out.println(e);
@@ -64,7 +64,7 @@ public class UserService {
 
     public User createUser(User newUser) {
         try {
-            User user = usuarioRepository.findByEmail(newUser.getEmail());
+            User user = userRepository.findByEmail(newUser.getEmail());
             if(user != null) {
                 return null;
             }
@@ -78,7 +78,7 @@ public class UserService {
                     newUser.setEmail(newUser.getEmail().toLowerCase());
                     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-                    return usuarioRepository.save(newUser);
+                    return userRepository.save(newUser);
                 }
                 else {
                     throw  new IllegalArgumentException(("El correo electrónico ingresado no es válido"));
@@ -114,11 +114,11 @@ public class UserService {
 
     public Optional<User> updateUser(User newUser, int id) {
         try {
-            return usuarioRepository.findById(id).map(
+            return userRepository.findById(id).map(
                     user -> {
                         user.setEmail(newUser.getEmail());
                         user.setPassword(newUser.getPassword());
-                        return usuarioRepository.save(user);
+                        return userRepository.save(user);
                     }
             );
         }
@@ -130,8 +130,8 @@ public class UserService {
 
     public User deleteUser(int id) {
         try {
-            User userDeleted = usuarioRepository.findById(id).orElseThrow();
-            usuarioRepository.deleteById(id);
+            User userDeleted = userRepository.findById(id).orElseThrow();
+            userRepository.deleteById(id);
             return userDeleted;
         }
         catch (NoSuchElementException e) {
