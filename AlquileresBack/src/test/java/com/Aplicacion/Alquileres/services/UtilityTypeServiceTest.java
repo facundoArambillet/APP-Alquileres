@@ -1,6 +1,7 @@
-package com.Aplicacion.Alquileres.repositories;
+package com.Aplicacion.Alquileres.services;
 
 import com.Aplicacion.Alquileres.models.UtilityType;
+import com.Aplicacion.Alquileres.repositories.UtilityTypeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @SpringBootTest(properties = {"spring.config.name=application-test"})
-public class UtilityTypeRepositoryTest {
-
+public class UtilityTypeServiceTest {
+    @Autowired
+    private UtilityTypeService utilityTypeService;
     @Autowired
     private UtilityTypeRepository utilityTypeRepository;
 
@@ -30,8 +32,8 @@ public class UtilityTypeRepositoryTest {
     public void setup() {
         UtilityType utilityType_1 = new UtilityType("Water");
         UtilityType utilityType_2 = new UtilityType("Electricity");
-        utilityTypeRepository.save(utilityType_1);
-        utilityTypeRepository.save(utilityType_2);
+        utilityTypeService.createUtilityType(utilityType_1);
+        utilityTypeService.createUtilityType(utilityType_2);
         utilityTypes.add(utilityType_1);
         utilityTypes.add(utilityType_2);
     }
@@ -40,11 +42,9 @@ public class UtilityTypeRepositoryTest {
     @Test
     void getAllUtilityTypes() {
         //Given condicion previa
-        utilityTypeRepository.save(utilityTypes.get(0));
-        utilityTypeRepository.save(utilityTypes.get(1));
 
         //When accion o comportamiento que vamos a probar
-        List<UtilityType> utilityTypes = utilityTypeRepository.findAll();
+        List<UtilityType> utilityTypes = utilityTypeService.getAll();
 
         //Then verificacion de la salida
         Assertions.assertThat(utilityTypes).isNotNull();
@@ -55,9 +55,9 @@ public class UtilityTypeRepositoryTest {
     @Test
     public void createUtilityType() {
         //Given condicion previa
-
+        UtilityType utilityType = utilityTypes.get(0);
         //When accion o comportamiento que vamos a probar
-        UtilityType utilityTypeSaved = utilityTypeRepository.save(utilityTypes.get(0));
+        UtilityType utilityTypeSaved = utilityTypeService.createUtilityType(utilityType);
 
         //Then verificacion de la salida
         Assertions.assertThat(utilityTypeSaved).isNotNull();
@@ -68,20 +68,14 @@ public class UtilityTypeRepositoryTest {
     @Test
     public void updateUtilityType() {
         //Given condicion previa
-        utilityTypeRepository.save(utilityTypes.get(0));
+        UtilityType utilityType = utilityTypes.get(0);
+        UtilityType newUtilityType = utilityTypes.get(1);
 
         //When accion o comportamiento que vamos a probar
-        Optional<UtilityType> utilityTypeSaved = utilityTypeRepository.findById(utilityTypes.get(0).getIdType());
-
-        utilityTypeSaved.map(
-                utilityType -> {
-                    utilityType.setType("Type updated");
-                    return utilityTypeRepository.save(utilityType);
-                }
-        );
+        Optional<UtilityType> utilityTypeSaved = utilityTypeService.updateUtilityType(newUtilityType,utilityType.getIdType());
 
         //Then verificacion de la salida
-        Assertions.assertThat(utilityTypeSaved.get().getType()).isEqualTo("Type updated");
+        Assertions.assertThat(utilityTypeSaved.get().getType()).isEqualTo("Electricity");
 
     }
 
@@ -89,13 +83,13 @@ public class UtilityTypeRepositoryTest {
     @Test
     public void deleteUtilityType() {
         //Given condicion previa
-        utilityTypeRepository.save(utilityTypes.get(0));
+        UtilityType utilityType = utilityTypes.get(0);
 
         //When accion o comportamiento que vamos a probar
-        utilityTypeRepository.delete(utilityTypes.get(0));
-        Optional<UtilityType> utilityTypeDeleted = utilityTypeRepository.findById(1);
+        utilityTypeService.deleteUtilityType(utilityType.getIdType());
+        UtilityType utilityTypeDeleted = utilityTypeService.getById(1);
 
         //Then verificacion de la salida
-        Assertions.assertThat(utilityTypeDeleted).isEmpty();
+        Assertions.assertThat(utilityTypeDeleted).isNull();
     }
 }
